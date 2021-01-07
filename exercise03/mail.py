@@ -73,15 +73,21 @@ def get_users_from_xls():
 def compose_message(user, img_path, img_filename):
     #TODO: format as html
     mail_content = f'''
-    Hi {user.first_name}! It's a file generated for you.
+    <html>
+        <head></head>
+        <body>
+            <h1>Hi {user.first_name}!</h1>
+            <h5>It's a file generated for you.</h5>
+        </body>
+    </html>
     '''
     # Set up MIME
-    message = MIMEMultipart()
+    message = MIMEMultipart('alternative')
     message['From'] = BOT_EMAIL_ADDR
     message['To'] = user.email
     message['Subject'] = "Your image"
     # Attach message
-    message.attach(MIMEText(mail_content, 'plain'))
+    message.attach(MIMEText(mail_content, 'html'))
     # Attach image
     with open(img_path, "rb") as img:
         part =  MIMEApplication(img.read(), Name=img_filename)
