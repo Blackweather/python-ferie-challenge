@@ -71,7 +71,6 @@ def get_users_from_xls():
     return users
 
 def compose_message(user, img_path, img_filename):
-    #TODO: format as html
     mail_content = f'''
     <html>
         <head></head>
